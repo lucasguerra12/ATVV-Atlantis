@@ -1,0 +1,36 @@
+:root {
+  /* Fundo da Janela (Background geral) */
+  --bg-body: #F8FAFC; 
+  
+  /* Sidebar */
+  --sidebar-bg: #0F172A;
+  
+  /* Cores dos Cartões (Vibrantes) */
+  --card-blue: #3B82F6;
+  --card-orange: #F97316;
+  --card-green: #10B981;
+  
+  /* Textos */
+  --text-primary: #1E293B;
+  --text-secondary: #64748B;
+  --text-white: #FFFFFF;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg-body);
+  color: var(--text-primary);
+  height: 100vh;
+  overflow: hidden; /* Evita scroll na janela inteira */
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}

@@ -1,0 +1,119 @@
+.layout-container {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  padding: 16px; /* O "respiro" nas bordas da tela */
+  gap: 16px;     /* Espaço entre a Sidebar e o Conteúdo */
+  background-color: var(--bg-body);
+}
+
+/* --- SIDEBAR FLUTUANTE --- */
+.sidebar {
+  /* Largura fechada */
+  width: 80px; 
+  height: 100%; /* Ocupa a altura do container (que já tem padding) */
+  background-color: var(--sidebar-bg);
+  color: white;
+  
+  border-radius: 24px; /* Borda bem arredondada */
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centraliza ícones */
+  padding: 32px 12px;
+  
+  transition: width 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  overflow: hidden;
+  z-index: 20;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+/* Expandir no Hover */
+.sidebar:hover {
+  width: 260px;
+  align-items: flex-start; /* Alinha texto à esquerda ao abrir */
+  padding: 32px 24px;
+}
+
+/* --- ÁREA DE CONTEÚDO FLUTUANTE --- */
+.content-area {
+  flex: 1;
+  background-color: #FFFFFF; /* Fundo branco para o conteúdo */
+  border-radius: 24px;       /* Borda arredondada igual à sidebar */
+  padding: 48px;             /* Espaço interno generoso */
+  overflow-y: auto;          /* Scroll apenas aqui dentro */
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  position: relative;
+}
+
+/* --- ESTILOS DOS ITENS DO MENU (Mantidos e Ajustados) --- */
+.logo-area {
+  margin-bottom: 40px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  height: 40px;
+  width: 100%;
+  white-space: nowrap;
+  justify-content: center; /* Ícone centralizado quando fechado */
+}
+
+.sidebar:hover .logo-area {
+  justify-content: flex-start;
+}
+
+.nav-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  flex: 1;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px;
+  text-decoration: none;
+  color: #94A3B8;
+  border-radius: 14px;
+  transition: all 0.3s;
+  height: 48px;
+  width: 100%;
+  white-space: nowrap;
+  justify-content: center; /* Ícone centralizado */
+}
+
+.sidebar:hover .nav-item {
+  justify-content: flex-start;
+}
+
+.nav-item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.nav-item.active {
+  background-color: var(--card-blue); /* Azul destaque */
+  color: white;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+}
+
+/* Textos ocultos quando fechado */
+.logo-text-container, .nav-text, .logout-text {
+  opacity: 0;
+  transition: opacity 0.2s;
+  display: none; /* Remove do layout para garantir alinhamento */
+}
+
+.sidebar:hover .logo-text-container,
+.sidebar:hover .nav-text,
+.sidebar:hover .logout-text {
+  opacity: 1;
+  display: block;
+}
+
+.sidebar-footer {
+  width: 100%;
+}
