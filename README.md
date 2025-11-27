@@ -98,4 +98,4 @@ Siga os passos abaixo para configurar o ambiente em sua máquina.
 
 ## 👨‍💻 Autor
 
-Desenvolvido por **Lucas Guerra** como parte das atividades práticas de Engenharia de Software.
+Desenvolvido por **Lucas Guerra**
