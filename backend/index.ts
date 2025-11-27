@@ -107,13 +107,27 @@ app.post('/clientes', async (req: Request, res: Response) => {
   }
 });
 
-// DELETE: Excluir Cliente
 app.delete('/clientes/:id', async (req: Request, res: Response) => {
+    const connection = await db.promise().getConnection();
     try {
-        await query('DELETE FROM clientes WHERE id = ?', [req.params.id]);
-        res.json({ message: 'Cliente removido' });
+        await connection.beginTransaction();
+
+        await connection.query('DELETE FROM hospedagens WHERE cliente_id = ?', [req.params.id]);
+        
+        await connection.query('DELETE FROM telefones WHERE cliente_id = ?', [req.params.id]);
+        await connection.query('DELETE FROM documentos WHERE cliente_id = ?', [req.params.id]);
+        await connection.query('DELETE FROM enderecos WHERE cliente_id = ?', [req.params.id]);
+
+        await connection.query('DELETE FROM clientes WHERE id = ?', [req.params.id]);
+
+        await connection.commit();
+        res.json({ message: 'Cliente e dados vinculados removidos com sucesso' });
     } catch (error) {
-        res.status(500).json({ error: 'Erro ao deletar' });
+        await connection.rollback();
+        console.error(error);
+        res.status(500).json({ error: 'Erro ao deletar cliente' });
+    } finally {
+        connection.release();
     }
 });
 

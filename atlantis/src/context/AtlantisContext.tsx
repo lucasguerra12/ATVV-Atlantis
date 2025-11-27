@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
 import { NomeAcomodacao } from '../utils/NomeAcomodacao';
 
+// URL do Backend
 const API_URL = 'http://localhost:3001';
 
 const formatDateToMySQL = (date: Date) => {
@@ -96,7 +97,6 @@ export function AtlantisProvider({ children }: { children: ReactNode }) {
 
   const addCliente = async (dados: Omit<Cliente, 'id' | 'dataCadastro'>) => {
     const novoId = crypto.randomUUID();
-    
     const novoCliente = { 
       ...dados, 
       id: novoId,
@@ -114,7 +114,6 @@ export function AtlantisProvider({ children }: { children: ReactNode }) {
       if (!response.ok) throw new Error('Erro no backend');
     } catch (error) {
       console.error("Erro ao salvar cliente", error);
-      alert("Erro ao salvar no banco de dados!");
       loadData(); 
     }
   };
@@ -131,6 +130,9 @@ export function AtlantisProvider({ children }: { children: ReactNode }) {
 
   const deleteCliente = async (id: string) => {
     setClientes(prev => prev.filter(c => c.id !== id));
+    
+    setHospedagens(prev => prev.filter(h => h.clienteId !== id));
+
     await fetch(`${API_URL}/clientes/${id}`, { method: 'DELETE' });
   };
 
@@ -157,7 +159,7 @@ export function AtlantisProvider({ children }: { children: ReactNode }) {
     const novaHospedagem: Hospedagem = {
       id: crypto.randomUUID(),
       clienteId, acomodacaoId,
-      dataEntrada: formatDateToMySQL(new Date()), 
+      dataEntrada: formatDateToMySQL(new Date()),
       status: 'Ativa'
     };
     setHospedagens(prev => [...prev, novaHospedagem]);
